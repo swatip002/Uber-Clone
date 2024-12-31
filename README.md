@@ -182,7 +182,6 @@ This endpoint is used to retrieve the profile of the currently authenticated use
 
 ### Headers:
 Authorization: Bearer jwt_token_here
-Example:
 
 ### Response Body:
 The response body will be a JSON object containing the user's details.
@@ -203,6 +202,41 @@ Example:
 If the user is not authenticated, the response body will be a JSON object with the following field:
 
 - `message`: A string with the error message.
+
+Example:
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+# User Logout Endpoint
+
+## Endpoint: /users/logout
+
+### Method: GET
+
+### Description:
+This endpoint is used to log out the currently authenticated user. It clears the authentication token provided in cookie or header and adds it to a blacklist.
+
+### Headers:
+Authorization: Bearer jwt_token_here
+
+### Response Body:
+The response body will be a JSON object with the following field:
+
+- `message`: A string with the success message.
+
+Example:
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+### Error Response:
+If the user is not authenticated, the response body will be a JSON object with the following field:
+
+- `message`: A string indicating the error message.
 
 Example:
 ```json
