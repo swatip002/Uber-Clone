@@ -322,3 +322,120 @@ Example:
   }
 }
 ```
+# Captain Profile Endpoint
+
+## Endpoint: /captains/profile
+
+### Method: GET
+
+### Description:
+This endpoint is used to retrieve the profile of the currently authenticated captain.
+
+### Headers:
+Authorization: Bearer jwt_token_here
+
+### Response Body:
+The response body will be a JSON object containing the captain's details
+
+Example:
+``` json
+{
+  "captain": {
+    "_id": "captain_id_here",
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane.doe@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+# Endpoint: /captains/login
+## Method: POST
+### Description:
+This endpoint is used to log in an existing captain. It validates the input data, checks the captain's credentials, and returns a JSON Web Token (JWT) along with the captain details.
+
+### Request Body:
+The request body should be a JSON object with the following fields:
+
+-`email`: A valid email address (required).
+- `password`: A string with a minimum length of 6 characters (required)
+Example:
+```JSON
+{
+  "email": "jane.doe@example.com",
+  "password": "password123"
+}
+```
+### Response
+The response body will be a JSON object with the following fields:
+
+-`token`: A JSON Web Token (JWT) string.
+-`captain`: An object containing:
+-`_id`: The captain's unique identifier.
+-`fullname`: An object containing:
+-`firstname`: The captain's first name.
+-`lastname`: The captain's last name.
+-`email`: The captain's email address.
+-`vehicle`: An object containing:
+-`color`: The vehicle's color.
+-`plate`: The vehicle's plate number.
+-`capacity`: The vehicle's capacity.
+-`vehicleType`: The type of vehicle.
+
+Example:
+```json
+{
+  "token": "jwt_token_here",
+  "captain": {
+    "_id": "captain_id_here",
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane.doe@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+# Captain Logout Endpoint
+## Endpoint: /captains/logout
+### Method: GET
+### Description:
+This endpoint is used to log out the currently authenticated captain. It clears the authentication token and adds it to a blacklist.
+
+### Headers:
+Authorization: A valid JSON Web Token (JWT) string (required).
+Authorization: Bearer jwt_token_here
+
+### Response Body:
+The response body will be a JSON object with the following field:
+
+message: A string indicating the success message.
+Example:
+```JSON
+{
+  "message": "Logged out successfully"
+}
+```
+### Error Response:
+If the captain is not authenticated, the response body will be a JSON object with the following field:
+
+message: A string indicating the error message.
+Example:
+```JSON
+{
+  "message": "Unauthorized"
+}
+```
