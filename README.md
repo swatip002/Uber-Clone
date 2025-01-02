@@ -244,3 +244,81 @@ Example:
   "message": "Unauthorized"
 }
 ```
+
+# Captain Registration Endpoint
+
+## Endpoint: `/captains/register`
+
+### Method: POST
+
+### Description:
+This endpoint is used to register a new captain. It validates the input data, hashes the password, creates a new captain in the database, and returns a JSON Web Token (JWT) along with the captain details.
+
+### Request Body:
+The request body should be a JSON object with the following fields:
+
+- `fullname`: An object containing:
+  - `firstname`: A string with a minimum length of 3 characters (required).
+  - `lastname`: A string with a minimum length of 3 characters (optional).
+- `email`: A valid email address (required).
+- `password`: A string with a minimum length of 6 characters (required).
+- `vehicle`: An object containing:
+  - `color`: A string with a minimum length of 3 characters (required).
+  - `plate`: A string with a minimum length of 3 characters (required).
+  - `capacity`: An integer with a minimum value of 1 (required).
+  - `vehicleType`: A string that must be one of `car`, `motorcycle`, or `auto` (required).
+
+Example:
+```json
+{
+  "fullname": {
+    "firstname": "Jane",
+    "lastname": "Doe"
+  },
+  "email": "jane.doe@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Response Body:
+The response body will be a JSON object with the following fields:
+
+- `token`: A JSON Web Token (JWT) string.
+- `captain`: An object containing:
+  - `_id`: The captain's unique identifier.
+  - `fullname`: An object containing:
+    - `firstname`: The captain's first name.
+    - `lastname`: The captain's last name.
+  - `email`: The captain's email address.
+  - `vehicle`: An object containing:
+    - `color`: The vehicle's color.
+    - `plate`: The vehicle's plate number.
+    - `capacity`: The vehicle's capacity.
+    - `vehicleType`: The type of vehicle.
+
+Example:
+```json
+{
+  "token": "jwt_token_here",
+  "captain": {
+    "_id": "captain_id_here",
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane.doe@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
